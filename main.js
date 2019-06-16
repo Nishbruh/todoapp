@@ -17,6 +17,14 @@ window.addEventListener('load', () => {
             generateList(filterList);
         }
     });
+
+    document.getElementById("get-users").addEventListener('click', function () {
+
+        getusers().then((data) => {
+            console.log(data.data);
+            generateUsersList(data.data)
+        });
+    });
 });
 
 addTodo = () => {
@@ -63,4 +71,28 @@ generateList = (todo) => {
                 </li>`;
     });
     document.querySelector("#todo-list").innerHTML = list;
+}
+
+generateUsersList = (todo) => {
+    if (!todo.length) {
+        document.getElementById("todo-list-heading").innerText = "No todo items"
+
+    } else {
+
+        document.getElementById("todo-list-heading").innerText = "You have " + todoList.length + " items pending";
+    }
+    const list = todo.map((todo) => {
+        return ` <li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${todo.first_name + ' '+ todo.last_name}
+                    <img src="${todo.avatar}" />
+                    <span class="badge badge-danger p-2  pull-right remove-todo" data-id="${todo.id}">X</span>
+                </li>`;
+    });
+    document.querySelector("#users-list").innerHTML = list;
+}
+
+async function getusers() {
+    const response = await fetch("https://reqres.in/api/users?page=1&per_page=3");
+    const data = await response.json();
+    return data;
 }
