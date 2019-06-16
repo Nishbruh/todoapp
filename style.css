@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    font-size: 15px;
+    width: 1024px;
+    margin: auto;
+    /*centers items on the cross-axis (y by default)*/
+}
+
+.badge {
+    cursor: pointer;
+}
